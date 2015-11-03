@@ -190,6 +190,35 @@ rule(Rules) -->
         sentence(Head),                      % S (only)
         { build_rules([], Head, Rules) }.    % That's a fact! No body.
 
+% Rules for words
+%rule(Rules) --> 
+
+parseWords(Return) -->
+	[ImportantWord], %{ write(ImportantWord) },
+	 fwOne, fwTwo ,obj(ObjType), 
+	 %{ write(ObjType) },
+	{ build_words(Return, ObjType, ImportantWord) }.
+	
+
+words([Head|Tail]) --> parseWords(Head), optAnd, words(Tail), !.
+
+words([Return]) --> parseWords(Return).
+ 
+optAnd --> [and].
+optAnd --> [].
+
+fwOne --> [is].
+fwOne --> [].
+
+fwTwo --> [a].
+fwTwo --> [an].
+fwTwo --> [].
+
+obj(n) --> [noun].
+obj(v) --> [verb].
+obj(adv) --> [adverb].
+obj(adj) --> [adjective].
+
 
 % 1 or more sentences joined by ands.
 sentence_conj_plus(Attrs) -->
@@ -394,6 +423,17 @@ build_rules(_, [], []).
 build_rules(Body, [Head|Heads], 
               [rule(Head, Body)|Rules]) :-
         build_rules(Body, Heads, Rules).
+
+% build_words just brakes the words....
+
+build_words(Return, Obj, Word) :- functor(Return, Obj, 1), arg(1, Return, Word).
+
+
+
+
+%build_words(_, [], []).
+%build_words(Body, [Head|Heads], [word_rule(Head, Body)|Tail]) :- 
+%	build_words(Body, Heads, Tail]).
 
 
 % build_up_advs(AdvList, NestedAdv) is true if NestedAdv is

@@ -336,7 +336,7 @@ load_rules(F) :-
 % Load rules from default input.
 load_rules :-
         read_sentence(L),   % Read a rule.
-%       bug(L),
+       bug(L),
         process(L),         % Insert the rule into the DB.
         load_rules.         % Tail recursive loop.
 load_rules :- !.            % Cut avoids backtracking (and re-processing!)
@@ -349,6 +349,10 @@ process(['rule:'|L]) :-     % Found a rule.
         rule(R,L,[]),       % Parse the rule.
         bug(R),             % Print it for debugging.
         assert_rules(R), !. % Assert it (them, potentially) in the DB.
+
+process(['words:'|L]) :-
+	write('do some shit'),nl,write(L), nl, !. 
+
 process(L) :-
         write('trans error on:'),nl,
         write(L),nl.
