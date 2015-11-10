@@ -1,0 +1,7 @@
+PLEASE simply load up TERMINAL and run SWIPL
+THEN just run hand_in.pl and all the answers should appear.
+
+ALL THE NECESSARY CODE WITH RELEVANT COMMENTS ARE IN HAND_IN.PL.
+
+
+TEAM ALBORZ MASSAH, MARTIN, JAMES, ALL SN, IDS are in HAND_IN.PL
