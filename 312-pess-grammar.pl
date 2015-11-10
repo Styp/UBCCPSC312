@@ -176,6 +176,10 @@ big_test_term(X) :- X =
 
 
 %%%%%%%%%%%%%%%%%%% grammar for parsing rules %%%%%%%%%%%%%%%%%%%
+goal(Rules) -->
+		
+		{write(Rules)}.
+
 
 % Rules can be..
 rule(Rules) -->                              % if S+ then S+
@@ -189,6 +193,7 @@ rule(Rules) -->                              % S if S+
 rule(Rules) -->
         sentence(Head),                      % S (only)
         { build_rules([], Head, Rules) }.    % That's a fact! No body.
+        
 
 % Rules for words
 %rule(Rules) --> 
@@ -675,6 +680,18 @@ n(pintail).
 n(bird).
 n(throat).
 n(insects).
+n(surface).
+n(atmosphere).
+n(people).
+n(rock).
+n(saturn).
+n(jupiter).
+n(neptune).
+n(robots).
+n(ring).
+n(visibility).
+n(moon).
+n(distance).
 
 % Adverbs.
 :- dynamic(adv/1).  % Ensure that the predicate can be modified dynamically
@@ -706,6 +723,7 @@ adj(backward).
 adj(large).
 adj(narrow).
 adj(white).
+adj(red).
 adj(dark).
 adj(black).
 adj(ponderous).
@@ -724,6 +742,13 @@ adj(brown).
 adj('v-shaped').
 adj(rusty).
 adj(square).
+adj(rocky).
+adj(thick).
+adj(gaseous).
+adj(visible).
+adj(good).
+adj(numerous).
+adj(utmost).
 
 % Doing verbs (i.e., not is/are or has/have/contains/contain).
 :- dynamic(v/1).  % Ensure that the predicate can be modified dynamically
@@ -736,3 +761,6 @@ v(scavenges).
 v(quacks).
 v(summers).
 v(winters).
+v(does).
+
+

@@ -1,0 +1,36 @@
+rule:
+if   its surface is rocky and
+	 its atmosphere is thick and
+	 it has people
+then it is a "n: planet earth".
+
+rule:
+if   its surface is rocky and
+	 it has robots
+then it is a "n: planet mars".
+
+rule:
+if   its surface is rocky
+then it is a "n: planet mercury".
+
+rule:
+if   its surface is rocky and
+	 its atmosphere is thick
+then it is a "n: planet venus".
+
+rule:
+if   its ring is visible and
+     its visibility is good
+then it is a "n: planet saturn".
+
+rule:
+if   its ring is visible
+then it is a "n: planet uranus".
+
+rule:
+if   its moon is numerous
+then it is a "n: planet jupiter".
+
+rule:
+if   its distance is utmost
+then it is a "n: planet neptun".

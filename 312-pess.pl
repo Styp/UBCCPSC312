@@ -349,6 +349,13 @@ process(['rule:'|L]) :-     % Found a rule.
         rule(R,L,[]),       % Parse the rule.
         bug(R),             % Print it for debugging.
         assert_rules(R), !. % Assert it (them, potentially) in the DB.
+        
+process([]) :- !.           % Ignore empty rules.
+process(['goal:'|L]) :-     % Found a rule.
+        goalRule(R,L,[]), !.      % Parse the rule.
+        %bug(R),             % Print it for debugging.
+        %assert_rules(R), !. % Assert it (them, potentially) in the DB.
+
 
 process(['words:'|L]) :-
 	words(R,L,[]), write('Return: '), write(R),
@@ -383,6 +390,38 @@ bug(X) :- write(X).
 %% 312pess.pl).
 
 
+main :-
+greeting, 
+repeat, 
+write('> '), 
+read(X), 
+do(X), 
+X == quit.
+
+greeting :-
+write('This is the CPSC312 Prolog Expert System Shell.'), nl,
+write('Based on Amzis "nativePrologshell".'), nl,
+write('Type help, load, solve or quit.'), nl.
+
+do(load) :- 
+write('Enter filename in single quotes, followed by a period'), nl, 
+read(X),
+load_rules(X), !.
+
+do(solve) :- solve, !.
+
+do(quit).
+
+do(help) :- 
+write('Type help. load. solve. or quit.'), nl,
+write('at the prompt. Notice the period after each command!'), nl.
+
+do(list) :- listing(rule(X, Y)), !.
+
+do(X) :-
+write(X), 
+write('is not a legal command.'), nl, 
+fail.
 
 
 
