@@ -347,14 +347,14 @@ load_rules :- !.            % Cut avoids backtracking (and re-processing!)
 process([]) :- !.           % Ignore empty rules.
 process(['rule:'|L]) :-     % Found a rule.
         rule(R,L,[]),       % Parse the rule.
-        bug(R),             % Print it for debugging.
+        %bug(R),             % Print it for debugging.
         assert_rules(R), !. % Assert it (them, potentially) in the DB.
         
-process([]) :- !.           % Ignore empty rules.
 process(['goal:'|L]) :-     % Found a rule.
-        goalRule(R,L,[]), !.      % Parse the rule.
-        %bug(R),             % Print it for debugging.
-        %assert_rules(R), !. % Assert it (them, potentially) in the DB.
+		write('Goal rule loaded: '),
+        goal(R,L,[]),       % Parse the rule.
+        bug(R),             % Print it for debugging.
+        assert_topgoal(R), !. % Assert it (them, potentially) in the DB.
 
 
 process(['words:'|L]) :-
@@ -371,13 +371,17 @@ process(L) :-
 assert_rules([]).
 assert_rules([R|Rs]) :- assertz(R), assert_rules(Rs).
 
+assert_topgoal([]).
+assert_topgoal([R|Rs]) :- write(R), assert_rules(Rs).
+
 % Delete the contents of the database (the rules, not the knowledge).
 % Also establishes the default top goal (to find out what "it" is).
+
 clear_db :-
         abolish(rule,2),
-        dynamic(rule/2),
+        dynamic(rule/2).
         %% For now, top_goal is set manually.
-        assertz(rule(top_goal(X), [attr(is_a, X, [])])).
+        %assertz(rule(top_goal(X), [attr(is_a, X, [])])).
 
 % Gloss a rule for debugging output.
 bug(X) :- write('Understood: '), 

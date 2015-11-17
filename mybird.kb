@@ -1,4 +1,13 @@
 goal: does it eat insects.
+goal: what is it.
+goal: what does it have.
+goal: is it a brown swan.
+
+
+rule:
+if   its feet are webbed and 
+     its bill is flat 
+then its order is waterfowl.
 
 rule:
 if   its nostrils are external and tubular and 

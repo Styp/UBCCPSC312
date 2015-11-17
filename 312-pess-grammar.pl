@@ -176,11 +176,6 @@ big_test_term(X) :- X =
 
 
 %%%%%%%%%%%%%%%%%%% grammar for parsing rules %%%%%%%%%%%%%%%%%%%
-goal(Rules) -->
-		
-		{write(Rules)}.
-
-
 % Rules can be..
 rule(Rules) -->                              % if S+ then S+
         [if], sentence_conj_plus(Body),      % conjunctive bodies OK
@@ -193,10 +188,18 @@ rule(Rules) -->                              % S if S+
 rule(Rules) -->
         sentence(Head),                      % S (only)
         { build_rules([], Head, Rules) }.    % That's a fact! No body.
+    
+% parse for goals    
+        
+goal(Goals) -->
+		{write('trying to solve some shit ... ')},
+		[does], sentence(Head),
+		{write('solved')},
+		{ build_rules([], Head, Goals) }.
         
 
 % Rules for words
-%rule(Rules) --> 
+%(Rules) --> 
 
 parseWords(Return) -->
 	[ImportantWord], %{ write(ImportantWord) },
@@ -250,6 +253,9 @@ sentence(Attrs) -->
           build_prepend_attrs(NPTermsHas, 
                               VPTerms, 
                               Attrs) }.
+                                                     
+question(Attrs) -->
+		vp([]), np(Attrs).
 
 % Verb phrases..
 vp(VPTerms) -->                 % It has or it contains
@@ -369,11 +375,13 @@ det_opt --> [its].
 det_opt --> [the].
 det_opt --> [a].
 det_opt --> [an].
+det_opt --> [it].
 
 % Nouns become is_a attributes.
 n([]) --> [it].                           % "it" is ignored
 n([attr(is_a,X,[])]) --> [X], { n(X) }.   % Anything listed below.
 n([attr(is_a,Name,[])]) --> lit(n, Name). % Any literal tagged as 'n'
+
 
 
 % Adverbs are either those provided below or literals.
@@ -431,8 +439,8 @@ build_rules(Body, [Head|Heads],
 
 % build_words just brakes the words....
 
-build_words(Return, Obj, Word) :- functor(Return, Obj, 1), arg(1, Return, Word).
 
+build_words(Return, Obj, Word) :- functor(Return, Obj, 1), arg(1, Return, Word).
 
 
 
@@ -754,6 +762,7 @@ adj(utmost).
 :- dynamic(v/1).  % Ensure that the predicate can be modified dynamically
 
 v(eats).
+v(eat).
 v(flies).
 v(lives).
 v(feeds).
