@@ -41,6 +41,12 @@
 
 % Import the grammar.
 :- consult('312-pess-grammar.pl').
+
+/*
+* Importing wn_ppl to be able to do question 6 which deals with
+* adding -ing or -ed to verbs. This can expand our vocabulary.
+*/
+
 :- consult('prolog/wn_ppl.pl').
 
 % ppl(synset_ID_1,w_num_1,synset_ID_2,w_num_).
