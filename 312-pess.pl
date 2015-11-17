@@ -55,6 +55,10 @@
 */
  ppl(synset_ID_1,w_num_1,synset_ID_2,w_num_).
 
+/*
+* s(synset_ID,w_num,‘word’,ss_type,sense_number,tag_count).
+* s(X,Y,'word',Z,V,B).
+
 % Synset ID 1 and w num 1 determine the adjective related to the verb, recorded by synset ID 2
 % and w num 2. The relation is lexical.
 
