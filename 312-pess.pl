@@ -49,7 +49,11 @@
 
 :- consult('prolog/wn_ppl.pl').
 
-% ppl(synset_ID_1,w_num_1,synset_ID_2,w_num_).
+/* This basic structure function called ppl is
+* inside the wn_ppl.pl file.
+* I plan to use it to help with answering question 6
+*/
+ ppl(synset_ID_1,w_num_1,synset_ID_2,w_num_).
 
 % Synset ID 1 and w num 1 determine the adjective related to the verb, recorded by synset ID 2
 % and w num 2. The relation is lexical.
