@@ -370,6 +370,16 @@ process(['rule:'|L]) :-     % Found a rule.
         bug(R),             % Print it for debugging.
         assert_rules(R), !. % Assert it (them, potentially) in the DB.
 
+/* We have added the goalRule.
+* The process function is basically doing the parsing of the goals.
+* it is able to take a head in the kb file defined with the start "goal:"
+* and parse it using goalRule(R,L,[]).
+* the functionality of goalRule(R,L,[]) will be described above that relevant
+* code
+*/
+
+
+
 process([]) :- !.           % Ignore empty rules.
 process(['goal:'|L]) :-     % Found a rule.
         goalRule(R,L,[]), !.      % Parse the rule.
@@ -409,6 +419,12 @@ bug(X) :- write(X).
 %% 312pess-grammar.pl (which allows that file to run independently of
 %% 312pess.pl).
 
+/* This is the main function we wrote
+* that will include an initial greeting,
+* repeat it, and then write out >, as it reads the users input and sends
+* it to do.
+* Eventually resulting in a quit state.
+*/
 
 main :-
 greeting,
@@ -417,6 +433,11 @@ write('> '),
 read(X),
 do(X),
 X == quit.
+
+/*
+* The greeteing is defined here as requested by the problem requirements in
+* the main project file (at least the up to date one)
+*/
 
 greeting :-
 write('This is the CPSC312 Prolog Expert System Shell.'), nl,
