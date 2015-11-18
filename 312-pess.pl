@@ -351,6 +351,7 @@ process(['rule:'|L]) :-     % Found a rule.
         assert_rules(R), !. % Assert it (them, potentially) in the DB.
         
 process(['goal:'|L]) :-     % Found a rule.
+		nl,
 		write('Goal rule loaded: '),
         goal(R,L,[]),       % Parse the rule.
         bug(R),             % Print it for debugging.

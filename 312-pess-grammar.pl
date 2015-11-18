@@ -192,8 +192,8 @@ rule(Rules) -->
 % parse for goals    
         
 goal(Goals) -->
-		{write('trying to solve some shit ... ')},
-		[does], sentence(Head),
+		{write('trying to solve ... ')},
+		question(Head),
 		{write('solved')},
 		{ build_rules([], Head, Goals) }.
         
@@ -253,11 +253,40 @@ sentence(Attrs) -->
           build_prepend_attrs(NPTermsHas, 
                               VPTerms, 
                               Attrs) }.
-                                                     
+      
+ 
 question(Attrs) -->
-		vp([]), np(Attrs).
+        np([]), vp(Attrs).
+
+question(Attrs) --> %parse Does
+		[does], np([]), vp(Attrs).
+
+question(Attrs) -->
+		 vis,
+		[it],
+		np(Attrs).
+        
+question(Attrs) -->
+		[what], [is], np([]),
+		{[attr(is_a,X,[])]}
+				
+question(Attrs) -->
+ 		 [what], [does], [it], vp(Attrs).
+                                                    
+%question(Attrs) -->
+%		np([NPT|NPTs]), vp(VPTerms),
+%        { convert_to_has_a([NPT|NPTs], 
+%                           NPTermsHas),   % Convert to canonical form.
+%          build_prepend_attrs(NPTermsHas, 
+%                              VPTerms, 
+%                              Attrs) }.
 
 % Verb phrases..
+%vp(VPTerms) -->                 % It has or it contains
+%        v(VPTerms),              % The noun should be has_a, not is_a
+%        { write(VPTerms) }.
+
+
 vp(VPTerms) -->                 % It has or it contains
         vhas,                   
         np_conj(NPTerms),       % The noun should be has_a, not is_a
@@ -266,6 +295,11 @@ vp(VPTerms) -->                 % It has or it contains
 vp(VPTerms) -->
         vis,                    % It is w/adjectives.
         adj_conj_plus(VPTerms).
+
+vp(VPTerms) -->
+		vis,
+		[it],
+		np_conj_plus(VPTerms).
 
 vp(VPTerms) -->
         vis,                    % It is w/nouns (which can also have adjs).
@@ -700,6 +734,7 @@ n(ring).
 n(visibility).
 n(moon).
 n(distance).
+n(what).
 
 % Adverbs.
 :- dynamic(adv/1).  % Ensure that the predicate can be modified dynamically
